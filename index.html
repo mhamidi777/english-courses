@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Courses</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="akh.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #1b4332;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-login-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1b4332;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
+            z-index: 1000;
+        }
+
+        .admin-login-btn:hover {
+            background-color: #2d6a4f;
+        }
+    </style>
+</head>
+<body>
+    
+<header>
+    <div class="container">
+        <div class="logo">
+            <a href="#"class="img_header"><img src="image/akh-removebg-preview.png" alt="Logo AUI"></a>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="https://aui.ma/fr/decouvrir-aui">À propos</a></li>
+                <li><a href="#">Vie à AUI</a></li>
+                <li class="has-submenu">
+                    <a href="#">Programmes</a>
+                    <ul class="submenu">
+                        <li><a href="#">Programmes de Licence</a></li>
+                        <li><a href="#">Programmes de Master</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#">Écoles</a>
+                    <ul class="submenu">
+                        <li><a href="#">École d'Administration des Affaires</a></li>
+                        <li><a href="#">École des Sciences Humaines et Sociales</a></li>
+                        <li><a href="#">École des Sciences et de l'Ingénierie</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Admissions & Aide</a></li>
+                <li><a href="#">Expérience Internationale</a></li>
+                <li><a href="#">Actualités & Événements</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<div class="video-background">
+    <video autoplay muted loop>
+        <source src="image/video/Al Akhawayn University Campus.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la balise vidéo.
+    </video>
+    <div class="content">
+        <h2>Our English Courses</h2>
+        <p>Join our English courses today! We offer a variety of courses for all levels.</p>
+    </div>
+</div>
+
+
+
+
+
+<div class="course-section">
+    <h2>Beginner Courses</h2>
+    <div class="course-container">
+        <button class="scroll-btn left" onclick="scrollCourses('beginner', -1)">&#10094;</button>
+        <div class="courses beginner-courses">
+            
+        </div>
+        <button class="scroll-btn right" onclick="scrollCourses('beginner', 1)">&#10095;</button>
+    </div>
+</div>
+
+
+
+
+
+<div class="course-section">
+    <h2>Advanced Courses</h2>
+    <div class="course-container">
+        <button class="scroll-btn left" onclick="scrollCourses('advanced', -1)">&#10094;</button>
+        <div class="courses advanced-courses">
+            
+        </div>
+        <button class="scroll-btn right" onclick="scrollCourses('advanced', 1)">&#10095;</button>
+    </div>
+</div>
+
+
+
+
+
+<div class="course-section">
+    <h2>Paid Courses</h2>
+    <div class="course-container">
+        <button class="scroll-btn left" onclick="scrollCourses('paid', -1)">&#10094;</button>
+        <div class="courses paid-courses">
+            
+        </div>
+        <button class="scroll-btn right" onclick="scrollCourses('paid', 1)">&#10095;</button>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-left">
+            <div class="footer-logo">
+                <img src="image/akhawyn_logo-removebg-preview.png" alt="Logo">
+            </div>
+            <p>&copy; Université Al Akhawayn © 2025 Tous droits réservés - - Site web par Latigid</p>
+        </div>
+
+        <div class="footer-links">
+            <div class="footer-section">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Programs</a></li>
+                    <li><a href="#">Admissions</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li>communication@aui.ma</li>
+                    <li>+212 (0)-535-862-000</li>
+                    <li>P.O Box 104, Hassan II Avenue, 53000 Ifrane, Morocco</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/AlAkhawayn"><img src="image/face.jpeg" alt="Facebook"></a>
+                    <a href="#"><img src="image/twitter.jpeg" alt="Twitter"></a>
+                    <a href="https://www.instagram.com/alakhawayn_university/"><img src="image/insta.jpeg" alt="Instagram"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<button class="admin-login-btn" onclick="window.location.href='admin.html'">
+    Connexion Admin
+</button>
+
+<script src="akh.js"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>

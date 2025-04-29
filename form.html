@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="course-title">Course Title</h1>
+        <p id="course-description">Course description will appear here.</p>
+
+        <form id="registration-form">
+            <h2><i class="fas fa-user-plus"></i> Register for this Course</h2>
+            <div class="form-group">
+                <label for="fullName"><i class="fas fa-user"></i> Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="phone"><i class="fas fa-phone"></i> Phone:</label>
+                <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+            </div>
+            <button type="submit"><i class="fas fa-check"></i> Register</button>
+        </form>
+
+        <div id="video-section" style="display: none;">
+            <div class="video-container">
+                <div class="video-player">
+                    <iframe id="video-player" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3 id="video-title">Video Title</h3>
+                    <p id="video-description">Video description will appear here.</p>
+                </div>
+            </div>
+            <div class="video-modules">
+                <h3><i class="fas fa-list"></i> Course Modules</h3>
+                <ul id="video-modules-list"></ul>
+            </div>
+        </div>
+    </div>
+    <script src="form.js"></script>
+</body>
+</html>

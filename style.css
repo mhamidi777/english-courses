@@ -1,0 +1,548 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #1b4332;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo img {
+    height: 80px;
+}
+
+nav {
+    flex-grow: 1;
+    text-align: right;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+    padding: 15px 20px;
+    display: block;
+}
+
+.menu a:hover {
+    background-color: #f4f4f4;
+    border-radius: 20px;
+}
+
+.has-submenu:hover .submenu {
+    display: block;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    min-width: 200px;
+}
+
+.submenu li {
+    width: 100%;
+}
+
+.submenu a {
+    padding: 10px 20px;
+    color: #333;
+}
+
+.submenu a:hover {
+    background-color: #f4f4f4;
+}
+
+  
+
+
+
+
+
+/*  vidéo en arrière-plan */
+.video-background {
+    position: relative;
+    width: 100%;
+    height: 100vh; 
+    overflow: hidden;
+}
+
+.video-background video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    z-index: -1; 
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    color: white;
+    text-align: center;
+    z-index: 1;
+}
+
+.content h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.content p {
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+.sidebar {
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    margin-right: 30px;
+    overflow: hidden;
+}
+
+.sidebar h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #003366;
+    text-align: center;
+}
+
+.course-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.courses {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+}
+
+.course-card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.course-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
+}
+
+.course-info {
+    padding: 15px;
+}
+
+.course-info h3 {
+    font-size: 18px;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.course-info p {
+    font-size: 14px;
+    color: #555;
+}
+
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 50%;
+}
+
+.scroll-btn.left {
+    left: 10px;
+}
+
+.scroll-btn.right {
+    right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.course-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.course-duration, .course-price {
+    background-color: #f0f0f0;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.loading-message, .no-courses {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+
+.course-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+/* Sidebar vidéo */
+.video-sidebar {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.video-sidebar h2 {
+    font-size: 22px;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+
+.video-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.video-card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
+}
+
+.video-description {
+    padding: 15px;
+}
+
+.video-description h3 {
+    font-size: 18px;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.video-description p {
+    font-size: 14px;
+    color: #555;
+}
+
+
+.video-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+/* Responsive Design pour les petits écrans */
+@media (max-width: 768px) {
+    .video-container {
+        flex-direction: column;
+    }
+}
+
+
+
+
+
+
+
+
+footer {
+    background-color: white;
+    color:black;
+    padding: 40px 20px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.footer-left {
+    flex: 1;
+}
+
+.footer-logo img {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    flex: 2;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-section {
+    width: 200px;
+}
+
+.footer-section h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #f9c922;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.footer-section a {
+    color: black;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: #f9c922;
+}
+
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a {
+    margin-right: 15px;
+}
+
+.social-icons img {
+    width: 25px;
+}
+
+@media (max-width: 768px) {
+    .footer-links {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+    }
+}
+
+/* Styles pour les cours dynamiques */
+.course-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.course-duration, .course-price {
+    background-color: #f0f0f0;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.loading-message, .no-courses {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Styles pour les sections de cours */
+.course-section {
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.course-section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #003366;
+    text-align: center;
+}
+
+.course-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.courses {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+}
+
+.course-card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.course-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
+}
+
+.course-info {
+    padding: 15px;
+}
+
+.course-info h3 {
+    font-size: 18px;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.course-info p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Boutons scroll */
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 50%;
+}
+
+.scroll-btn.left {
+    left: 10px;
+}
+
+.scroll-btn.right {
+    right: 10px;
+}
+
+/* Styles pour les catégories de cours */
+.beginner-courses .course-card {
+    border-top: 3px solid #4CAF50;
+}
+
+.advanced-courses .course-card {
+    border-top: 3px solid #2196F3;
+}
+
+.paid-courses .course-card {
+    border-top: 3px solid #FF9800;
+}
+
+
+

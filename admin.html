@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panneau d'administration - English Courses</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" class="img_header"><img src="image/akh-removebg-preview.png" alt="Logo AUI"></a>
+            </div>
+    <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Retour au site</a></li>
+                    <li><a href="#" id="logout-btn">Déconnexion</a></li>
+                </ul>
+    </nav>
+        </div>
+  </header>
+
+    <div class="admin-container">
+        
+        <div id="login-section" class="admin-section">
+            <h2>Connexion administrateur</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn">Se connecter</button>
+            </form>
+        </div>
+
+        
+        <div id="admin-section" class="admin-section hidden">
+            <h2>Panneau d'administration</h2>
+            
+            
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="courses">Cours</button>
+                <button class="tab-btn" data-tab="students">Étudiants</button>
+                <button class="tab-btn" data-tab="admins">Administrateurs</button>
+                <button class="tab-btn" data-tab="settings">Paramètres</button>
+            </div>
+            
+            
+            <div id="courses-tab" class="tab-content active">
+                <h3>Gestion des cours</h3>
+                
+                <!-- Formulaire d'ajout/modification de cours -->
+                <form id="course-form">
+                    <div class="form-group">
+                        <label for="course-title">Titre du cours</label>
+                        <input type="text" id="course-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="course-desc">Description</label>
+                        <textarea id="course-desc" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="course-img">Image du cours</label>
+                        <input type="file" id="course-img" accept="image/*" required>
+                        <small>Formats acceptés : JPG, PNG, JPEG. Taille maximale : 2MB</small>
+                        <div id="image-preview" class="image-preview"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="course-duration">Durée</label>
+                        <input type="text" id="course-duration" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="course-price">Prix (€)</label>
+                        <input type="number" id="course-price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="course-category">Catégorie du cours</label>
+                        <select id="course-category" required>
+                            <option value="">Sélectionnez une catégorie</option>
+                            <option value="beginner">Cours débutant</option>
+                            <option value="advanced">Cours avancé</option>
+                            <option value="paid">Cours payant</option>
+                        </select>
+                        <small>La catégorie détermine où le cours apparaîtra sur le site</small>
+                    </div>
+                    
+                    <!-- Section pour les vidéos du cours -->
+                    <div class="form-group">
+                        <label>Vidéos du cours</label>
+                        <div id="course-videos-container">
+                            <div class="video-entry">
+                                <div class="form-group">
+                                    <label for="video-title-0">Titre de la vidéo</label>
+                                    <input type="text" id="video-title-0" class="video-title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="video-desc-0">Description de la vidéo</label>
+                                    <textarea id="video-desc-0" class="video-desc" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="video-file-0">Fichier vidéo</label>
+                                    <input type="file" id="video-file-0" class="video-file" accept="video/*" required>
+                                    <small>Formats acceptés : MP4, WebM. Taille maximale : 100MB</small>
+                                    <div class="video-preview"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="add-video-btn" class="btn btn-secondary">Ajouter une vidéo</button>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="course-submit-btn">Ajouter le cours</button>
+                </form>
+                
+
+
+                <!-- Liste des cours -->
+                <div class="courses-list-container">
+                    <h3>Liste des cours</h3>
+                    <div id="courses-list" class="courses-list">
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Onglet des étudiants -->
+            <div id="students-tab" class="tab-content">
+                <h3>Gestion des étudiants</h3>
+                
+                <!-- Filtres pour les étudiants -->
+                <div class="filters">
+                    <div class="form-group">
+                        <label for="course-filter">Filtrer par cours</label>
+                        <select id="course-filter">
+                            <option value="all">Tous les cours</option>
+                            <!-- Les options seront ajoutées dynamiquement -->
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Liste des étudiants -->
+                <div class="students-list-container">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Cours</th>
+                                <th>Date d'inscription</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="students-list">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Onglet des administrateurs -->
+            <div id="admins-tab" class="tab-content">
+                <h3>Gestion des administrateurs</h3>
+                
+                <!-- Formulaire d'ajouter d'administrateur -->
+                <form id="admin-form">
+                    <div class="form-group">
+                        <label for="new-admin-username">Nom d'utilisateur</label>
+                        <input type="text" id="new-admin-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-admin-password">Mot de passe</label>
+                        <input type="password" id="new-admin-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-admin-role">Rôle</label>
+                        <select id="new-admin-role" required>
+                            <option value="admin">Administrateur</option>
+                            <option value="super_admin">Super Administrateur</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Ajouter l'administrateur</button>
+                </form>
+
+                <!-- Liste des administrateurs -->
+                <div class="admins-list-container">
+                    <h3>Liste des administrateurs</h3>
+                    <table class="admins-table">
+                        <thead>
+                            <tr>
+                                <th>Nom d'utilisateur</th>
+                                <th>Rôle</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admins-list">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Onglet des paramètres -->
+            <div id="settings-tab" class="tab-content">
+                <h3>Paramètres de l'administrateur</h3>
+                
+                <!-- Formulaire de modification des paramètres -->
+                <form id="settings-form">
+                    <div class="form-group">
+                        <label for="admin-username">Nom d'utilisateur</label>
+                        <input type="text" id="admin-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-password">Nouveau mot de passe</label>
+                        <input type="password" id="admin-password">
+                        <small>Laissez vide pour ne pas changer</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-confirm-password">Confirmer le mot de passe</label>
+                        <input type="password" id="admin-confirm-password">
+                    </div>
+                    <button type="submit" class="btn">Enregistrer les modifications</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <img src="image/akhawyn_logo-removebg-preview.png" alt="Logo">
+                </div>
+                <p>&copy; Université Al Akhawayn © 2025 Tous droits réservés - - Site web par Latigid</p>
+            </div>
+    
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Programs</a></li>
+                        <li><a href="#">Admissions</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+    
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>communication@aui.ma</li>
+                        <li>+212 (0)-535-862-000</li>
+                        <li>P.O Box 104, Hassan II Avenue, 53000 Ifrane, Morocco</li>
+                    </ul>
+                </div>
+    
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#"><img src="image/face.jpeg" alt="Facebook"></a>
+                        <a href="#"><img src="image/twitter.jpeg" alt="Twitter"></a>
+                        <a href="#"><img src="image/insta.jpeg" alt="Instagram"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="admin.js"></script>
+</body>
+</html>
