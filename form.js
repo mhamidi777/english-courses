@@ -141,7 +141,7 @@ function handleFormSubmit(event) {
     const courseId = urlParams.get('courseId') || urlParams.get('id');
     
     const formData = {
-        fullName: document.getElementById('fullName').value,
+        fullName: document.getElementById('name').value,
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
         courseId: courseId

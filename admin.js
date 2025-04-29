@@ -149,9 +149,12 @@ function createVideoEntry() {
     
     videoFile.addEventListener('change', async (e) => {
         const file = e.target.files[0];
+        console.log('Fichier vidéo sélectionné:', file);
+        
         if (file) {
             // Vérifier la taille du fichier (100MB max)
             if (file.size > 100 * 1024 * 1024) {
+                console.error('Fichier trop volumineux:', file.size);
                 alert('La vidéo ne doit pas dépasser 100MB');
                 videoFile.value = '';
                 videoPreview.innerHTML = '';
@@ -160,20 +163,35 @@ function createVideoEntry() {
 
             // Vérifier le type de fichier
             if (!file.type.match('video.*')) {
+                console.error('Type de fichier invalide:', file.type);
                 alert('Veuillez sélectionner une vidéo valide');
                 videoFile.value = '';
                 videoPreview.innerHTML = '';
                 return;
             }
 
-            // Afficher l'aperçu
-            const videoURL = URL.createObjectURL(file);
-            videoPreview.innerHTML = `
-                <video controls style="max-width: 100%; margin-top: 10px;">
-                    <source src="${videoURL}" type="${file.type}">
-                    Votre navigateur ne supporte pas la lecture de vidéos.
-                </video>
-            `;
+            try {
+                // Afficher l'aperçu
+                const videoURL = URL.createObjectURL(file);
+                console.log('URL de la vidéo créée:', videoURL);
+                
+                videoPreview.innerHTML = `
+                    <video controls style="max-width: 100%; margin-top: 10px;">
+                        <source src="${videoURL}" type="${file.type}">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                `;
+                
+                // Ajouter un écouteur pour nettoyer l'URL lors de la suppression
+                videoEntry.addEventListener('remove', () => {
+                    URL.revokeObjectURL(videoURL);
+                });
+                
+                console.log('Aperçu de la vidéo créé avec succès');
+            } catch (error) {
+                console.error('Erreur lors de la création de l\'aperçu:', error);
+                alert('Erreur lors de la création de l\'aperçu de la vidéo');
+            }
         } else {
             videoPreview.innerHTML = '';
         }
@@ -278,8 +296,16 @@ function compressImage(base64String, maxWidth = 800) {
 
 // Fonction pour compresser une vidéo
 function compressVideo(base64String) {
-    // Réduire la qualité de la vidéo en base64
-    return base64String.split(',')[0] + ',' + base64String.split(',')[1].substring(0, 1000000);
+    console.log('Compression de la vidéo...');
+    try {
+        // Réduire la qualité de la vidéo en base64
+        const compressed = base64String.split(',')[0] + ',' + base64String.split(',')[1].substring(0, 1000000);
+        console.log('Vidéo compressée avec succès');
+        return compressed;
+    } catch (error) {
+        console.error('Erreur lors de la compression de la vidéo:', error);
+        return base64String; // Retourner la vidéo non compressée en cas d'erreur
+    }
 }
 
 // Fonction pour optimiser les données du cours
@@ -550,6 +576,8 @@ courseForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     try {
+        console.log('Soumission du formulaire de cours...');
+        
         // Vérifier les champs requis
         const title = document.getElementById('course-title').value;
         const description = document.getElementById('course-desc').value;
@@ -559,28 +587,37 @@ courseForm.addEventListener('submit', async (e) => {
         const imageFile = document.getElementById('course-img').files[0];
 
         if (!title || !description || !duration || !price || !category || !imageFile) {
+            console.error('Champs requis manquants');
             alert('Veuillez remplir tous les champs obligatoires');
             return;
         }
 
         // Vérifier les vidéos
         const videoEntries = document.querySelectorAll('.video-entry');
+        console.log('Nombre d\'entrées vidéo:', videoEntries.length);
+        
         if (videoEntries.length === 0) {
+            console.error('Aucune vidéo ajoutée');
             alert('Veuillez ajouter au moins une vidéo');
             return;
         }
 
         // Convertir l'image en base64
+        console.log('Conversion de l\'image en base64...');
         const imageBase64 = await getBase64(imageFile);
         
         // Collecter les données des vidéos
+        console.log('Collecte des données des vidéos...');
         const videos = [];
         for (const entry of videoEntries) {
             const videoFile = entry.querySelector('.video-file').files[0];
             if (!videoFile) {
+                console.error('Fichier vidéo manquant dans une entrée');
                 alert('Veuillez sélectionner une vidéo pour chaque entrée');
                 return;
             }
+            
+            console.log('Traitement de la vidéo:', videoFile.name);
             const videoBase64 = await getBase64(videoFile);
             videos.push({
                 title: entry.querySelector('.video-title').value,
@@ -603,13 +640,17 @@ courseForm.addEventListener('submit', async (e) => {
             createdBy: currentAdmin.username
         };
 
+        console.log('Données du cours préparées:', courseData);
+
         // Sauvegarder le cours
         const success = await saveCourse(courseData);
         if (success) {
+            console.log('Cours sauvegardé avec succès');
             courseForm.reset();
             document.getElementById('course-videos-container').innerHTML = '';
             alert(isEditing ? 'Cours mis à jour avec succès' : 'Cours ajouté avec succès');
         } else {
+            console.error('Échec de la sauvegarde du cours');
             alert('Une erreur est survenue lors de la sauvegarde du cours');
         }
     } catch (error) {
@@ -843,17 +884,39 @@ function addAdmin(username, password, role) {
 
 function deleteAdmin(index) {
     console.log('Tentative de suppression d\'un administrateur:', index);
+    console.log('État actuel de currentAdmin:', currentAdmin);
+    
+    if (!currentAdmin) {
+        console.error('Erreur: currentAdmin n\'est pas défini');
+        alert('Erreur: Vous devez être connecté pour effectuer cette action');
+        return false;
+    }
     
     if (!isSuperAdmin()) {
         console.log('Accès refusé: utilisateur n\'est pas un super administrateur');
+        console.log('Rôle actuel:', currentAdmin.role);
+        alert('Seuls les super administrateurs peuvent supprimer des administrateurs');
+        return false;
+    }
+    
+    if (index < 0 || index >= ADMIN_CONFIG.admins.length) {
+        console.error('Index invalide:', index);
+        console.log('Nombre total d\'administrateurs:', ADMIN_CONFIG.admins.length);
+        alert('Index d\'administrateur invalide');
         return false;
     }
     
     const adminToDelete = ADMIN_CONFIG.admins[index];
+    console.log('Admin à supprimer:', adminToDelete);
+    console.log('Comparaison des usernames:', {
+        adminToDelete: adminToDelete.username,
+        currentAdmin: currentAdmin.username
+    });
     
     // Empêcher la suppression de son propre compte
     if (adminToDelete.username === currentAdmin.username) {
         console.log('Impossible de supprimer son propre compte');
+        alert('Vous ne pouvez pas supprimer votre propre compte');
         return false;
     }
     
@@ -864,9 +927,24 @@ function deleteAdmin(index) {
     try {
         localStorage.setItem('adminConfig', JSON.stringify(ADMIN_CONFIG));
         console.log('Administrateur supprimé avec succès');
+        console.log('Nouvelle liste des administrateurs:', ADMIN_CONFIG.admins);
+        
+        // Mettre à jour l'interface
+        renderAdmins();
+        
+        alert('Administrateur supprimé avec succès');
         return true;
     } catch (error) {
-        console.error('Erreur lors de la suppression de l\'administrateur:', error);
+        console.error('Erreur lors de la sauvegarde dans localStorage:', error);
+        console.error('Détails de l\'erreur:', {
+            message: error.message,
+            name: error.name,
+            stack: error.stack
+        });
+        
+        // Restaurer l'état précédent
+        ADMIN_CONFIG.admins.splice(index, 0, adminToDelete);
+        alert('Erreur lors de la sauvegarde des modifications');
         return false;
     }
 }
